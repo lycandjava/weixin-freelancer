@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 为Dao的全路径信息，mybatis查找使用 -->
+<mapper namespace="com.todotask.platform.dao.UserDao">
+
+	<resultMap type="User" id="userResult">
+		<result property="id" column="id" />
+		<result property="name" column="username" />
+		<result property="password" column="password" />
+	</resultMap>
+	
+	<insert id="saveUser" parameterType="User" keyProperty="id">
+		insert
+		into t_dss_user(username,password)
+		values( #{name},#{password});
+	</insert>
+
+	<!-- count -->
+	<select id="count" resultType="int">
+		select count(*) from t_dss_user e
+	</select>
+
+	<select id="countParam" parameterType="java.util.Map"
+		resultType="int">
+		select count(*) from t_dss_user e
+		<where>
+			<if test="username != null"> and username = #{username}</if>
+		</where>
+	</select>
+	<!-- 查询（参数） -->
+	<select id="selectParam" parameterType="java.util.Map"
+		resultType="User">
+		select * from t_dss_user
+		<where>
+			<if test="id != null">id = #{id}</if>
+			<if test="username != null"> and username = #{username}</if>
+		</where>
+		<if test="orderColumn != null">
+			order by ${orderColumn}
+			<if test="orderTurn != null">
+				${orderTurn}
+			</if>
+		</if>
+	</select>
+
+	<delete id="deleteUser" parameterType="User">
+		delete from t_dss_user
+		where id
+		= #{id};
+	</delete>
+
+
+	<!-- 批量更新 -->
+	<update id="updateBatch" parameterType="User">
+		<!-- collection可以是List对于list,数组对于array,Map对应ids -->
+		<foreach collection="list" item="emp" separator=";">
+			update emp
+			<set>
+				<if test="emp.empname != null">empname= #{emp.empname,jdbcType=VARCHAR},</if>
+				<if test="emp.dep != null">depid= #{emp.dep.depid,jdbcType=INTEGER},</if>
+			</set>
+			<where>
+				<if test="emp.empid != null">
+					empid = #{emp.empid,jdbcType=INTEGER}
+				</if>
+			</where>
+		</foreach>
+	</update>
+
+</mapper>

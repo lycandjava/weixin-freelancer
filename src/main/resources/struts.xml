@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.objectFactory.spring.autoWire" value="name" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.multipart.maxSize" value="20971521" />
+
+ 
+	<package name="cis-default" extends="struts-default">
+		<interceptors>
+				<interceptor name="encoding" class="com.todotask.platform.interceptors.EncodingInterceptor"></interceptor>
+				<interceptor name="rbac" class="com.todotask.platform.interceptors.RBACInterceptor"></interceptor>
+				<interceptor-stack name="userLoginStack">
+<!-- 					<interceptor-ref name="encoding" /> -->
+<!-- 					<interceptor-ref name="rbac" /> -->
+					<interceptor-ref name="fileUploadStack" />
+				 	<interceptor-ref name="defaultStack"></interceptor-ref><!-- 必须引入这个，否则request不会再往下传--> 
+				</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="userLoginStack" /> 
+	
+		<global-results>
+			<result name="dump">/browse/json/dump.jsp</result>
+			<result name="json">/browse/json/object.jsp</result>
+			<result name="jsons">/browse/json/objects.jsp</result>
+			<result name="collection">/browse/json/collection.jsp</result>
+			<result name="value">/browse/json/value.jsp</result>
+			<result name="message">/browse/json/message.jsp</result>
+			<result name="xml">/browse/xml/object.jsp</result>
+			<result name="xmls">/browse/xml/objects.jsp</result>
+			<result name="no-authority">/browse/no-authority.jsp</result>
+			<result name="login">/default.jsp</result>
+		</global-results>
+	</package>
+	<package name="site" extends="cis-default" namespace="/">
+		<!-- UserAction -->
+		<action name="User!*" class="com.todotask.platform.action.UserAction"  method="{1}">
+			<result name="success">/WEB-INF/browse/sys/user/index.jsp</result>
+		</action>
+	</package>
+
+</struts>    

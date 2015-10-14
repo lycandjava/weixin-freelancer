@@ -1,0 +1,1 @@
+<%@ page contentType="text/xml; charset=utf-8"%><%@ taglib prefix="s" uri="/struts-tags"%><%@include file="../part/cache-control-header.jsp"%><s:property value="xml" escape="false" />
