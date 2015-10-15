@@ -14,18 +14,18 @@
 	
 	<insert id="saveUser" parameterType="User" keyProperty="id">
 		insert
-		into t_dss_user(username,password)
+		into t_sys_user(username,password)
 		values( #{name},#{password});
 	</insert>
 
 	<!-- count -->
 	<select id="count" resultType="int">
-		select count(*) from t_dss_user e
+		select count(*) from t_sys_user e
 	</select>
 
 	<select id="countParam" parameterType="java.util.Map"
 		resultType="int">
-		select count(*) from t_dss_user e
+		select count(*) from t_sys_user e
 		<where>
 			<if test="username != null"> and username = #{username}</if>
 		</where>
@@ -33,7 +33,7 @@
 	<!-- 查询（参数） -->
 	<select id="selectParam" parameterType="java.util.Map"
 		resultType="User">
-		select * from t_dss_user
+		select * from t_sys_user
 		<where>
 			<if test="id != null">id = #{id}</if>
 			<if test="username != null"> and username = #{username}</if>
@@ -47,7 +47,7 @@
 	</select>
 
 	<delete id="deleteUser" parameterType="User">
-		delete from t_dss_user
+		delete from t_sys_user
 		where id
 		= #{id};
 	</delete>

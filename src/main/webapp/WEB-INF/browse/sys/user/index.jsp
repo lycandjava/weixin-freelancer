@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix ="s" uri="/struts-tags"%>
 <%
 	String basePath = request.getContextPath() ;
 %>
@@ -10,5 +11,8 @@
 </head>
 <body>
 	用户信息
+	<s:iterator value="userList" status="row">
+		<s:property value="username"/> <s:property value="password"/>
+	</s:iterator>
 </body>
 </html>

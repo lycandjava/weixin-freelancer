@@ -28,7 +28,7 @@ public class BaseActionSupport extends ActionSupport implements SessionAware,
 	protected HttpServletResponse response;
 	protected Map session;
 	
-	protected static final String SUCCESSED = "successed";
+	protected static final String SUCCESSED = "success";
 	protected static final String LIST = "list";
 	/**
 	 * 返回结果类型：查看详细信息
