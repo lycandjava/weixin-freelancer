@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+    http://cxf.apache.org/jaxws   
+    http://cxf.apache.org/schemas/jaxws.xsd">  
+
+	<!-- id:唯一标识 ;address：访问url;serviceClass：接口类型 -->
+	<jaxws:server id="userWService" address="/userWService"
+		serviceClass="com.todotask.platform.ws.IUserWService">
+		<jaxws:serviceBean>
+			<!-- 提供服务的实现类 -->
+			<bean class="com.todotask.platform.ws.impl.UserWServiceImpl"></bean>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+		<!-- 本机测试 ,配置客户端bean -->
+	<jaxws:client id="client"
+		address="http://127.0.0.1:8080/ucenter/ws/userWService" serviceClass="com.todotask.platform.ws.IUserWService"></jaxws:client>
+	
+		
+</beans>
