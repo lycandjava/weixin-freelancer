@@ -1,6 +1,7 @@
 package com.todotask.platform.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,7 +189,9 @@ public class MybatisBaseDao<T, PK extends Serializable> extends
 	@Override
 	public List<T> select() {
 		try {
-			return getSqlSession().selectList(namespace + "." + SQLID_SELECT);
+		    List<T> result = new ArrayList<T>();
+		    result = getSqlSession().selectList(namespace + "." + SQLID_SELECT);
+		    return result;
 		} catch (Exception e) {
 			String loggerDesc = "执行查询操作【"+namespace+"." + SQLID_SELECT+"】 失败";
 			logger.error(loggerDesc,e);

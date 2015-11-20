@@ -39,5 +39,8 @@ public class UserServiceImpl extends AbstractBaseService<User, Serializable> {
 	public IBaseDao<User, Serializable> getDao() {
 		return userDao;
 	}
-
+	
+	public String[] getAllPriByUser(String userId){
+	    return null;
+	}
 }

@@ -10,12 +10,29 @@
 		<result property="id" column="id" />
 		<result property="name" column="username" />
 		<result property="password" column="password" />
+		<result property="fullname" column="fullname" />
+		<result property="sex" column="sex" />
+		<result property="id_card" column="idCard" />
+		<result property="birthday" column="birthday" />
+		<result property="education" column="education" />
+		<result property="address" column="address" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="qq" column="qq" />
+		<result property="weixin" column="weixin" />
+		<result property="create_date" column="createDate" />
+		<result property="user_type" column="userType" />
+		<result property="source_system" column="sourceSystem" />
+		<result property="remark" column="remark" />
 	</resultMap>
+	<sql id="selectColumn">
+		id,username,password,fullname,sex,id_card,birthday,education,address,phone,email,qq,weixin,create_date,user_type,source_system,remark
+	</sql>
 	
-	<insert id="saveUser" parameterType="User" keyProperty="id">
+	<insert id="insert" parameterType="User" keyProperty="id">
 		insert
-		into t_sys_user(username,password)
-		values( #{name},#{password});
+		into t_sys_user(username,password,fullname,sex,id_card,birthday,education,address,phone,email,qq,weixin,create_date,user_type,source_system,remark)
+		values( #{username},#{password},#{fullname},#{sex},#{idCard},#{birthday},#{education},#{address},#{phone},#{email},#{qq},#{weixin},#{createDate},#{userType},#{sourceSystem},#{remark});
 	</insert>
 
 	<!-- count -->
@@ -33,7 +50,7 @@
 	<!-- 查询（参数） -->
 	<select id="selectParam" parameterType="java.util.Map"
 		resultType="User">
-		select * from t_sys_user
+		select <include refid="selectColumn" /> from t_sys_user
 		<where>
 			<if test="id != null">id = #{id}</if>
 			<if test="username != null"> and username = #{username}</if>

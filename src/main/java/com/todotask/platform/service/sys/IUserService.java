@@ -23,6 +23,6 @@ import com.todotask.platform.model.User;
  * @date 2015年6月23日
  * @version 1.0.0
  */
-public interface IUserService {
+public interface IUserService  {
 	public List<User> queryUserList();
 }
